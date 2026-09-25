@@ -1,0 +1,22 @@
+<div id="perfil-usuario" style="display: none; align-items: center; gap: 10px; padding: 20px;">
+    <!-- Elemento que vai mostrar a foto de perfil do Google -->
+    <img id="foto-google" src="" alt="Foto de perfil" style="width: 40px; height: 40px; border-radius: 50%;">
+    <!-- Elemento que vai mostrar o nome do usuário -->
+    <p>Olá, <strong id="nome-google"></strong>!</p>
+</div>
+
+<script>
+    // Verifica se existe um usuário logado na memória do navegador
+    if (localStorage.getItem("usuario_logado") === "true") {
+        // Mostra o bloco de perfil
+        document.getElementById("perfil-usuario").style.display = "flex";
+        
+        // Preenche com os dados reais salvos pelo login do Google
+        document.getElementById("nome-google").innerText = localStorage.getItem("usuario_nome");
+        document.getElementById("foto-google").src = localStorage.getItem("usuario_foto");
+    } else {
+        // Se a pessoa tentar acessar a home sem logar, manda de volta para o login
+        alert("Acesso negado! Faça login primeiro.");
+        window.location.href = "login.html";
+    }
+</script>

@@ -1,0 +1,45 @@
+<!-- 1. Carrega o script oficial de autenticação do Google -->
+<script src="https://google.com" async defer></script>
+
+<!-- 2. Bloco de configuração com o SEU ID REAL -->
+<div id="g_id_onload"
+     data-client_id="://googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="aoReceberRespostaDoGoogle"
+     data-auto_prompt="false">
+</div>
+
+<!-- 3. O botão visual do Google que aparece na página -->
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
+
+<!-- 4. Script para ler e processar os dados do usuário -->
+<script>
+  function aoReceberRespostaDoGoogle(resposta) {
+    try {
+        // Decodifica as informações enviadas pelo Google
+        const payload = JSON.parse(atob(resposta.credential.split('.')));
+        
+        // Salva os dados básicos na memória do navegador
+        localStorage.setItem("usuario_logado", "true");
+        localStorage.setItem("usuario_nome", payload.name);
+        localStorage.setItem("usuario_email", payload.email);
+        localStorage.setItem("usuario_foto", payload.picture);
+
+        // Alerta de sucesso e redirecionamento
+        alert("Acesso autorizado! Bem-vindo, " + payload.name);
+        window.location.href = "home.html"; 
+
+    } catch (erro) {
+        console.error("Erro ao processar login:", erro);
+        alert("Houve um problema ao fazer login com o Google.");
+    }
+  }
+</script>
